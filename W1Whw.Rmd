@@ -1,0 +1,68 @@
+---
+title: "W1whw"
+output: html_notebook
+---
+
+```{r}
+
+library(tidyverse)
+
+library(CodeClanData)
+
+library(dplyr)
+
+library(ggplot2)
+
+library(janitor)
+
+read_csv(data\books.csv)
+
+```
+
+```{r}
+
+# say what you see
+
+dim(books)
+#11123 observations over 13 columns
+
+glimpse(books)
+# data is a mix of numeric and character.  numberics are scientific and decimal?  double check its not an R studio thing or if it impacts R studio using both??  
+
+plot(books)
+# nothing initially showing as making sense, data requiring manipulation
+
+library(skimr)
+
+skim(books)
+#6 solumns are character whilst 7 columns are numeric in type, no missing values.
+
+summary(books)
+# the average rating is 3.934 and the meadian is 3.960 indicating no big outliers within the dataset.  the average number of pages is 336 whilst the median is 299....data a bit more heterogeneous but to be expectced. There is a significant disparity between the mean and median of ratings_count, 17943 vs 745 and text_reviews_count with 542 vs 47.  definitely avoid using the median with this data or the mode actually.  Any averages should also have a S.dev to indicate variability.
+
+hist(books$average_rating)
+
+hist(books$text_reviews_count)
+
+boxplot(books$average_rating)
+
+boxplot(books$text_reviews_count)
+
+```
+
+```{r}
+  clndbks <- books %>% 
+  select(c(authors, publisher, publication_date, title, average_rating, language_code, ratings_count, num_pages, text_reviews_count))
+
+clndbks
+
+  # now just nine columns of useful data, also handy reminder, add the columns to keep in the order you want them in and automatic arrangement.
+
+```
+
+```{r}
+
+clndbks %>%
+  arrange(desc(average_rating))
+ 
+```
